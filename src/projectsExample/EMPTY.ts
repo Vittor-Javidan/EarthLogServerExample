@@ -10,6 +10,7 @@ export const EMPTY: ProjectDTO = {
       allowGPSChange: true,
       allowProjectNameChange: true,
       allowSampleAliasChange: true,
+      allowProjectExport: true,
       showCreateWidgetButton_Project: true,
       showCreateWidgetButton_Template: true,
       showSampleCreationButton: true,

@@ -14,6 +14,7 @@ export const GEOLOGY: ProjectDTO = {
       allowProjectNameChange: true,
       allowMultipleDownloads: true,
       allowGPSChange: true,
+      allowProjectExport: true,
       showSampleCreationButton: true,
       addGPSToNewSamples: true,
     },
