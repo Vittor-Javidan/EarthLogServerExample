@@ -41,7 +41,7 @@ app.post('/project', (request, response) => {
     if (projects[i].projectSettings.status === 'uploaded') {
       response
         .setHeader('serverMessage', `project "${projects[i].projectSettings.name}" was uploaded already`)
-        .sendStatus(406)
+        .sendStatus(403)
       return;
     }
   }
