@@ -18,9 +18,14 @@ app.post('/auth', (request, response) => {
 
 app.get('/project', (request, response) => {
 
-  const allprojects: ProjectDTO[] = Object.values(projectsExample)
-  const allUploadedProject = DBSystem.loadAllProjectFiles()
+  // Authorization token
+  console.log(request.headers.authorization)
 
+  // Projects to be downloaded many time as needed
+  const allprojects: ProjectDTO[] = Object.values(projectsExample)
+
+  // Projects that was uploaded before
+  const allUploadedProject = DBSystem.loadAllProjectFiles()
   allUploadedProject.forEach(project => {
     project.projectSettings.status = 'uploaded'
   })
@@ -35,23 +40,32 @@ app.get('/project', (request, response) => {
 
 app.post('/project', (request, response) => {
 
-  const projects: ProjectDTO[] = request.body.projects;
+  // Authorization token
+  console.log(request.headers.authorization)
 
-  for (let i = 0; i < projects.length; i++) {
-    if (projects[i].projectSettings.status === 'uploaded') {
-      response
-        .setHeader('serverMessage', `project "${projects[i].projectSettings.name}" was uploaded already`)
-        .sendStatus(403)
-      return;
-    }
-  }
+  const project: ProjectDTO = request.body.project;
 
+  // status will always be 'new'
+  console.log(project.projectSettings.status)
+
+  DBSystem.saveFile(project.projectSettings.id_project, project)
   response.sendStatus(202);
-
-  for (let i = 0; i < projects.length; i++) {
-    DBSystem.saveFile(projects[i].projectSettings.id_project, projects[i])
-  }
 })
+
+app.post('/project/:id_project', (request, response) => {
+
+  // Authorization token
+  console.log(request.headers.authorization)
+
+  const id_project = request.params.id_project;
+  const project: ProjectDTO = request.body.project;
+
+  // status will always be 'modified' or 'uploaded'
+  console.log(project.projectSettings.status)
+
+  DBSystem.saveFile(id_project, project)
+  response.sendStatus(202);
+});
 
 app.listen(6969, () => {
   console.log(`Server is running on http://localhost:6969`);
