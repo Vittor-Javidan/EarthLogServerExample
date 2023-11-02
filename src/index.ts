@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import { projectsExample } from './projectsExample/index.js';
-import { ProjectDTO } from './Types.js';
+import { ProjectDTO } from './Types/DTO.js';
 import DBSystem from './DBSystem.js';
 
 const app = express();

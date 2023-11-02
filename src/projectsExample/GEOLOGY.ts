@@ -1,4 +1,4 @@
-import { ProjectDTO } from "../Types.js";
+import { ProjectDTO } from "../Types/DTO.js";
 
 export const GEOLOGY: ProjectDTO = {
   projectSettings: {

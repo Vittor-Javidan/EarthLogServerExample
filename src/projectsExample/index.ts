@@ -1,4 +1,4 @@
-import { ProjectDTO } from "../Types.js";
+import { ProjectDTO } from "../Types/DTO.js";
 import { EMPTY } from "./EMPTY.js";
 import { GEOLOGY } from "./GEOLOGY.js";
 

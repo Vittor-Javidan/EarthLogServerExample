@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { ProjectDTO } from './Types.js'
+import { ProjectDTO } from './Types/DTO.js'
 
 export default class DBSystem {
 
