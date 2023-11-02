@@ -1,13 +1,18 @@
 import express from 'express';
+import multer from 'multer';
 import { projectsExample } from './projectsExample/index.js';
 import { ProjectDTO } from './Types.js';
 import DBSystem from './DBSystem.js';
 
 const app = express();
 
-app.use(express.json({
-  limit: '100mb'
-}));
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage,   limits: {
+  fieldSize: 10 * 10 * 1024 * 1024, // 100mb form data limit
+}, });
+
+app.use(express.json({ limit: '100mb' }));
 
 app.post('/auth', (request, response) => {
   request.body
@@ -18,18 +23,18 @@ app.post('/auth', (request, response) => {
 
 app.get('/project', (request, response) => {
 
-  // Authorization token
-  console.log(request.headers.authorization)
+  console.log(request.headers.authorization) // Authorization token
 
-  // Projects to be downloaded many time as needed
-  const allprojects: ProjectDTO[] = Object.values(projectsExample)
+  // Meke your own implementation to send projects
+  // ============================================================== //
+  const allprojects: ProjectDTO[] = Object.values(projectsExample)  //
+  const allUploadedProject = DBSystem.loadAllProjectFiles()         //
+  allUploadedProject.forEach(project => {                           //
+    project.projectSettings.status = 'uploaded'                     //
+  })                                                                //
+  // ============================================================== //
 
-  // Projects that was uploaded before
-  const allUploadedProject = DBSystem.loadAllProjectFiles()
-  allUploadedProject.forEach(project => {
-    project.projectSettings.status = 'uploaded'
-  })
-
+  // Send projects to the app to be saved or discarted
   response.send({
     projects: [
       ...allprojects,
@@ -40,31 +45,46 @@ app.get('/project', (request, response) => {
 
 app.post('/project', (request, response) => {
 
-  // Authorization token
-  console.log(request.headers.authorization)
+  console.log(request.headers.authorization) // Authorization token
 
   const project: ProjectDTO = request.body.project;
 
-  // status will always be 'new'
-  console.log(project.projectSettings.status)
-
-  DBSystem.saveFile(project.projectSettings.id_project, project)
-  response.sendStatus(202);
+  // Do anything you want with the data from this point 
+  // ======================================================================= //
+  DBSystem.saveProject(project.projectSettings.id_project, project)          //
+  response.sendStatus(202);                                                  //
+  console.log(project.projectSettings.status) // status will always be 'new' //
+  // ======================================================================= //
 })
 
 app.post('/project/:id_project', (request, response) => {
 
-  // Authorization token
-  console.log(request.headers.authorization)
+  console.log(request.headers.authorization) // Authorization token
 
-  const id_project = request.params.id_project;
+  const id_project: string = request.params.id_project;
   const project: ProjectDTO = request.body.project;
 
-  // status will always be 'modified' or 'uploaded'
-  console.log(project.projectSettings.status)
+  // Do anything you want with the data from this point
+  // ========================================================================================== //
+  DBSystem.saveProject(`${id_project}.json`, project)                                           //
+  response.sendStatus(202);                                                                     //
+  console.log(project.projectSettings.status) // status will always be 'modified' or 'uploaded' //
+  // ========================================================================================== //
+});
 
-  DBSystem.saveFile(id_project, project)
-  response.sendStatus(202);
+app.post('/image', upload.single('image'), (request, response) => {
+
+  console.log(request.headers.authorization) // Authorization token
+
+  const id_project: string = request.body.id_project;
+  const id_picture: string = request.body.id_picture;
+  const base64Data: string = request.body.picture;
+
+  // Do anything you want with the data from this point
+  // ============================================================= //
+  DBSystem.saveImage(id_project, `${id_picture}.jpg`, base64Data)  //
+  response.sendStatus(202);                                        //
+  // ============================================================= //
 });
 
 app.listen(6969, () => {

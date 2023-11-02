@@ -4,12 +4,23 @@ import { ProjectDTO } from './Types.js'
 export default class DBSystem {
 
   private static folderDir = './JsonProjects' 
+  private static imageFolder = './Images'
 
-  static saveFile(fileName: string, data: object): void {
+  static saveProject(fileName: string, data: object): void {
     if (!fs.existsSync(this.folderDir)) {
       fs.mkdirSync(this.folderDir)
     }
     fs.writeFileSync(`${this.folderDir}/${fileName}.json`, JSON.stringify(data, null, 2))
+  }
+
+  static saveImage(id_project: string, fileName: string, data: string) {
+    if (!fs.existsSync(this.imageFolder)) {
+      fs.mkdirSync(this.imageFolder)
+    }
+    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
+      fs.mkdirSync(`${this.imageFolder}/${id_project}`)
+    }
+    fs.writeFileSync(`${this.imageFolder}/${id_project}/${fileName}`, data, { encoding: 'base64' })
   }
 
   static loadAllProjectFiles(): ProjectDTO[] {
