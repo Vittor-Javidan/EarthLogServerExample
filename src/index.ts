@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { projectsExample } from './projectsExample/index.js';
 import { ProjectDTO } from './Types/DTO.js';
-import DBSystem from './DBSystem.js';
+import MockedDatabase from './DBSystem.js';
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.get('/project', (request, response) => {
   // Meke your own implementation to send projects
   // ============================================================== //
   const allprojects: ProjectDTO[] = Object.values(projectsExample)  //
-  const allUploadedProject = DBSystem.loadAllProjectFiles()         //
+  const allUploadedProject = MockedDatabase.loadAllProjectFiles()         //
   allUploadedProject.forEach(project => {                           //
     project.projectSettings.status = 'uploaded'                     //
   })                                                                //
@@ -51,7 +51,7 @@ app.post('/project', (request, response) => {
 
   // Do anything you want with the data from this point 
   // ======================================================================= //
-  DBSystem.saveProject(project.projectSettings.id_project, project)          //
+  MockedDatabase.saveProject(project.projectSettings.id_project, project)          //
   response.sendStatus(202);                                                  //
   console.log(project.projectSettings.status) // status will always be 'new' //
   // ======================================================================= //
@@ -66,7 +66,7 @@ app.post('/project/:id_project', (request, response) => {
 
   // Do anything you want with the data from this point
   // ========================================================================================== //
-  DBSystem.saveProject(`${id_project}.json`, project)                                           //
+  MockedDatabase.saveProject(`${id_project}.json`, project)                                           //
   response.sendStatus(202);                                                                     //
   console.log(project.projectSettings.status) // status will always be 'modified' or 'uploaded' //
   // ========================================================================================== //
@@ -82,7 +82,7 @@ app.post('/image', upload.single('image'), (request, response) => {
 
   // Do anything you want with the data from this point
   // ============================================================= //
-  DBSystem.saveImage(id_project, `${id_picture}.jpg`, base64Data)  //
+  MockedDatabase.saveImage(id_project, `${id_picture}.jpg`, base64Data)  //
   response.sendStatus(202);                                        //
   // ============================================================= //
 });

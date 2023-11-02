@@ -6,7 +6,7 @@ import { ProjectDTO } from './Types/DTO.js'
  * This is a mocked database, with the purpose to display the data saved with easy access.
  * In production you can use any service as you want. Cloud, SQL noSQL, etc.
  */
-export default class DBSystem {
+export default class MockedDatabase {
 
   private static folderDir = './JsonProjects' 
   private static imageFolder = './Images'
