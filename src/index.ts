@@ -3,6 +3,7 @@ import multer from 'multer';
 import { projectsExample } from './projectsExample/index.js';
 import { ProjectDTO, ProjectSettings } from './Types/DTO.js';
 import MockedDatabase from './MockedDatabase.js';
+import { SyncData } from './Types/Sync.js';
 
 const app = express();
 
@@ -109,6 +110,7 @@ app.post('/image/:id_project', upload.single('image'), (request, response) => {
   const id_project: string = request.params.id_project;
   const id_picture: string = request.body.id_picture;
   const base64Data: string = request.body.picture;
+  const syncData: SyncData = request.body.syncData;
 
   // Do anything you want with the data from this point
   // ===================================================================== //
