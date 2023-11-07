@@ -18,16 +18,6 @@ export default class MockedDatabase {
     fs.writeFileSync(`${this.folderDir}/${fileName}.json`, JSON.stringify(data, null, 2))
   }
 
-  static saveImage(id_project: string, fileName: string, data: string) {
-    if (!fs.existsSync(this.imageFolder)) {
-      fs.mkdirSync(this.imageFolder)
-    }
-    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
-      fs.mkdirSync(`${this.imageFolder}/${id_project}`)
-    }
-    fs.writeFileSync(`${this.imageFolder}/${id_project}/${fileName}`, data, { encoding: 'base64' })
-  }
-
   static loadAllProjectFiles(): ProjectDTO[] {
     if (!fs.existsSync(this.folderDir)) {
       fs.mkdirSync(this.folderDir)
@@ -44,5 +34,28 @@ export default class MockedDatabase {
     }
 
     return allProjects;
+  }
+
+  static savePicture(id_project: string, fileName: string, data: string) {
+    if (!fs.existsSync(this.imageFolder)) {
+      fs.mkdirSync(this.imageFolder)
+    }
+    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
+      fs.mkdirSync(`${this.imageFolder}/${id_project}`)
+    }
+    fs.writeFileSync(`${this.imageFolder}/${id_project}/${fileName}`, data, { encoding: 'base64' })
+  }
+
+  static loadPicture(id_project: string, fileName: string): string | null {
+    if (!fs.existsSync(this.imageFolder)) {
+      fs.mkdirSync(this.imageFolder)
+    }
+    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
+      return null
+    }
+    if (!fs.existsSync(`${this.imageFolder}/${id_project}/${fileName}`)) {
+      return null
+    }
+    return fs.readFileSync(`${this.imageFolder}/${id_project}/${fileName}`, 'base64')
   }
 }
