@@ -102,11 +102,11 @@ app.post('/project/:id_project', (request, response) => {
   // ========================================================================================== //
 });
 
-app.post('/image', upload.single('image'), (request, response) => {
+app.post('/image/:id_project', upload.single('image'), (request, response) => {
 
   console.log(request.headers.authorization) // Authorization token
 
-  const id_project: string = request.body.id_project;
+  const id_project: string = request.params.id_project;
   const id_picture: string = request.body.id_picture;
   const base64Data: string = request.body.picture;
 
@@ -121,8 +121,8 @@ app.get('/image/:id_project/:id_picture', (request, response) => {
 
   console.log(request.headers.authorization) // Authorization token
 
-  const id_project: string = request.body.id_project;
-  const id_picture: string = request.body.id_picture;
+  const id_project: string = request.params.id_project;
+  const id_picture: string = request.params.id_picture;
 
   // Get the picture base64 string data
   // ============================================================================= //
