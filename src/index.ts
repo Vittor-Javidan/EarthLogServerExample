@@ -117,7 +117,7 @@ app.post('/image', upload.single('image'), (request, response) => {
   // ===================================================================== //
 });
 
-app.get('/image/:id_project/:id_picture', upload.single('image'), (request, response) => {
+app.get('/image/:id_project/:id_picture', (request, response) => {
 
   console.log(request.headers.authorization) // Authorization token
 
