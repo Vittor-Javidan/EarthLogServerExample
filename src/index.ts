@@ -52,11 +52,11 @@ app.post('/project', (request, response) => {
   const project: ProjectDTO = request.body.project;
 
   // Do anything you want with the data from this point 
-  // ======================================================================= //
-  MockedDatabase.saveProject(project.projectSettings.id_project, project)    //
-  response.sendStatus(202);                                                  //
-  console.log(project.projectSettings.status) // status will always be 'new' //
-  // ======================================================================= //
+  // ================================================================================= //
+  MockedDatabase.saveProject(`${project.projectSettings.id_project}.json`, project)    //
+  response.sendStatus(202);                                                            //
+  console.log(project.projectSettings.status) // status will always be 'new'           //
+  // ================================================================================= //
 })
 
 app.get('/project/:id_project', (request, response) => {
@@ -110,7 +110,6 @@ app.post('/image/:id_project', upload.single('image'), (request, response) => {
   const id_project: string = request.params.id_project;
   const id_picture: string = request.body.id_picture;
   const base64Data: string = request.body.picture;
-  const syncData: SyncData = request.body.syncData;
 
   // Do anything you want with the data from this point
   // ===================================================================== //

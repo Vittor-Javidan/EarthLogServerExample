@@ -15,7 +15,7 @@ export default class MockedDatabase {
     if (!fs.existsSync(this.folderDir)) {
       fs.mkdirSync(this.folderDir)
     }
-    fs.writeFileSync(`${this.folderDir}/${fileName}.json`, JSON.stringify(data, null, 2))
+    fs.writeFileSync(`${this.folderDir}/${fileName}`, JSON.stringify(data, null, 2))
   }
 
   static loadAllProjectFiles(): ProjectDTO[] {
