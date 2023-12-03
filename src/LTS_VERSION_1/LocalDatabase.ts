@@ -3,10 +3,12 @@ import { ProjectDTO } from './Types/DTO.js'
 
 
 /**
- * This is a mocked database, with the purpose to display the data saved with easy access.
- * In production you can use any service as you want. Cloud, SQL noSQL, etc.
+ * This is a mocked database, with only the purpose to display the data saved with easy access and
+ * to demo the app Server features.
+ * You can you any other database you desire, all you need to do is change the implementation on
+ * index.ts file.
  */
-export default class MockedDatabase {
+export default class LocalDatabase {
 
   private static folderDir = './JsonProjects' 
   private static imageFolder = './Images'
