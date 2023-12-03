@@ -10,7 +10,26 @@ const app = express();
 app.use(express.json({ limit: '100mb' })); // Limit of each json request payload.
 
 app.post('/auth', (request, response) => {
-  request.body
+
+  console.log('=======================================')
+  console.log('ENDPOINT: /auth (POST)')
+  console.log(request.body.user)     // User name
+  console.log(request.body.password) // User password
+
+  /*
+    On this example, the server is not verifying any account user and password, but this is the
+    place to recognize users and to send their accessToken to be used on other endpoints if they got
+    authenticated.
+
+    The auth endpoint is always called before any other endpoint. You don't need to create tokens
+    with long expire time, since the app don't store any accessToken in cache or storage. Once the
+    accessToken is used, its throw away to garbage collector.
+
+    Is this that way to allow user to configure credentials only once, and to allow multiple servers to be
+    configured, each one with their own credentials. So, its recommended to generate long private keys for
+    users instead asking then to create their own password, for safety reasons.
+  */
+
   response.send({
     accessToken: 'userAccessToken',
   });
@@ -18,6 +37,8 @@ app.post('/auth', (request, response) => {
 
 app.get('/project', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /project (GET)')
   console.log(request.headers.authorization) // Authorization token
 
   // Get all ProjectSettings you want to display to user. Theses are just to display the available 
@@ -43,11 +64,13 @@ app.get('/project', (request, response) => {
 
 app.post('/project', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /project (POST)')
   console.log(request.headers.authorization) // Authorization token
+  console.log(request.body.syncData)         // Sync Data
 
   const project: ProjectDTO = request.body.project;
   const { id_project } = project.projectSettings;
-  const syncData: SyncData = request.body.syncData;
 
   // Do anything you want with the project data from this point
   // ================================================================================= //
@@ -60,6 +83,8 @@ app.post('/project', (request, response) => {
 
 app.get('/project/:id_project', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /project/:id_project (GET)')
   console.log(request.headers.authorization) // Authorization token
 
   const id_project: string = request.params.id_project;
@@ -90,11 +115,13 @@ app.get('/project/:id_project', (request, response) => {
 
 app.post('/project/:id_project', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /project/:id_project (POST)')
   console.log(request.headers.authorization) // Authorization token
+  console.log(request.body.syncData)         // Sync Data
 
   const id_project: string = request.params.id_project;
   const project: ProjectDTO = request.body.project;
-  const syncData: SyncData = request.body.syncData;
 
   // Do anything you want with the project data from this point
   // ========================================================================================== //
@@ -107,12 +134,14 @@ app.post('/project/:id_project', (request, response) => {
 
 app.post('/image/:id_project', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /image/:id_project (POST)')
   console.log(request.headers.authorization) // Authorization token
+  console.log(request.body.syncData)         // Sync Data
 
   const id_project: string = request.params.id_project;
   const id_picture: string = request.body.id_picture;
   const base64Data: string = request.body.picture;
-  const syncData: SyncData = request.body.syncData;
 
   // Do anything you want with the picture data from this point
   // ===================================================================== //
@@ -124,6 +153,8 @@ app.post('/image/:id_project', (request, response) => {
 
 app.get('/image/:id_project/:id_picture', (request, response) => {
 
+  console.log('=======================================')
+  console.log('ENDPOINT: /image/:id_project (GET)')
   console.log(request.headers.authorization) // Authorization token
 
   const id_project: string = request.params.id_project;

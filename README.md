@@ -4,12 +4,13 @@
 
 - Open a terminal inside the repo folder and run the command "npm install" to install all dependencies.
 
-- run the "npx tsc" to build the server files.
+- run the "npx tsc" command to build the server files.
 
 - to define the desired lts server version, just change the lts version number on "start" script inside package.json file.
 
   Examples:
 
+```
   "scripts": {
     "start": "node dist/LTS_VERSION_1/index.js",
     ...
@@ -21,6 +22,8 @@
     "start": "node dist/LTS_VERSION_2/index.js",
     ...
   }
+
+```
 
   etc..
 
