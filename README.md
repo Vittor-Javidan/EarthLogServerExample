@@ -1,10 +1,15 @@
-# Follow these simple steps to start the example server:
+# Follow these simple steps to create a demo local server:
+
 
 - install nodeJS and remember to install npm during node install process https://nodejs.org/
 
-- Open a terminal inside the repo folder and run the command "npm install" to install all dependencies.
+- download this repository by clicking on "Code" > "Download Zip".
 
-- run the "npx tsc" command to build the server files.
+- Extract the files into a folder.
+
+- Open a terminal inside the main repository folder (Where is located the package.json file) and run the command "npm install" to install all dependencies.
+
+- run the "npx tsc" command on terminal to build the server files.
 
 - to define the desired lts server version, just change the lts version number on "start" script inside package.json file.
 
@@ -27,9 +32,9 @@
 
   etc..
 
-- start the server: "npx start"
+- start the server with the command "npx start"
 
-- Find your pc ipv4 address. On windows just run the command "ipconfig" and get the ipv4 from Wifi adapter.
+- Find your pc IPV4 wifi address. On windows just run the command "ipconfig" and get the ipv4 from Wifi adapter.
 
 - Inside the EarthLog app create a new credential, and add the url "http://<Your_IPV4_address>:6969". You don't need to set name and password in this test.
 
