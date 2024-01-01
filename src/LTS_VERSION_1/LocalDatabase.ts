@@ -10,27 +10,38 @@ import { ProjectDTO } from './Types/DTO.js'
  */
 export default class LocalDatabase {
 
-  private static folderDir = './JsonProjects' 
-  private static imageFolder = './Images'
+  private static lts_version_folder = './v1'
+  private static projectsFolder = '/JsonProjects'
+  private static imageFolder = '/Images'
 
   static saveProject(fileName: string, data: object): void {
-    if (!fs.existsSync(this.folderDir)) {
-      fs.mkdirSync(this.folderDir)
+
+    if (!fs.existsSync(this.lts_version_folder)) {
+      fs.mkdirSync(this.lts_version_folder)
     }
-    fs.writeFileSync(`${this.folderDir}/${fileName}`, JSON.stringify(data, null, 2))
+
+    if (!fs.existsSync(this.projectsFolder)) {
+      fs.mkdirSync(this.projectsFolder)
+    }
+
+    fs.writeFileSync(`${this.lts_version_folder}${this.projectsFolder}/${fileName}`, JSON.stringify(data, null, 2))
   }
 
   static loadAllProjectFiles(): ProjectDTO[] {
-    if (!fs.existsSync(this.folderDir)) {
-      fs.mkdirSync(this.folderDir)
+
+    if (!fs.existsSync(this.lts_version_folder)) {
+      fs.mkdirSync(this.lts_version_folder)
     }
 
-    const files = fs.readdirSync(this.folderDir)
+    if (!fs.existsSync(this.projectsFolder)) {
+      fs.mkdirSync(this.projectsFolder)
+    }
+
+    const files = fs.readdirSync(`${this.lts_version_folder}${this.projectsFolder}`)
     const allProjects: ProjectDTO[] = []
 
     for (const file of files) {
-      const filePath = `${this.folderDir}/${file}`
-      const fileData = fs.readFileSync(filePath, 'utf-8');
+      const fileData = fs.readFileSync(`${this.lts_version_folder}${this.projectsFolder}/${file}`, 'utf-8');
       const parsedData = JSON.parse(fileData) as ProjectDTO
       allProjects.push(parsedData)
     }
@@ -39,25 +50,40 @@ export default class LocalDatabase {
   }
 
   static savePicture(id_project: string, fileName: string, data: string) {
+
+    if (!fs.existsSync(this.lts_version_folder)) {
+      fs.mkdirSync(this.lts_version_folder)
+    }
+
     if (!fs.existsSync(this.imageFolder)) {
       fs.mkdirSync(this.imageFolder)
     }
+
     if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
-      fs.mkdirSync(`${this.imageFolder}/${id_project}`)
+      fs.mkdirSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)
     }
-    fs.writeFileSync(`${this.imageFolder}/${id_project}/${fileName}`, data, { encoding: 'base64' })
+
+    fs.writeFileSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`, data, { encoding: 'base64' })
   }
 
   static loadPicture(id_project: string, fileName: string): string | null {
+
+    if (!fs.existsSync(this.lts_version_folder)) {
+      fs.mkdirSync(this.lts_version_folder)
+    }
+
     if (!fs.existsSync(this.imageFolder)) {
       fs.mkdirSync(this.imageFolder)
     }
-    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
+
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)) {
       return null
     }
-    if (!fs.existsSync(`${this.imageFolder}/${id_project}/${fileName}`)) {
+
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`)) {
       return null
     }
-    return fs.readFileSync(`${this.imageFolder}/${id_project}/${fileName}`, 'base64')
+
+    return fs.readFileSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`, 'base64')
   }
 }
