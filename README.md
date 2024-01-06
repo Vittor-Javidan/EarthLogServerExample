@@ -30,9 +30,7 @@
 
 ```
 
-  etc..
-
-- start the server with the command "npx start"
+- start the server with the command "npm start"
 
 - Find your pc IPV4 wifi address. On windows just run the command "ipconfig" and get the ipv4 from Wifi adapter.
 
