@@ -20,8 +20,8 @@ export default class LocalDatabase {
       fs.mkdirSync(this.lts_version_folder)
     }
 
-    if (!fs.existsSync(this.projectsFolder)) {
-      fs.mkdirSync(this.projectsFolder)
+    if (!fs.existsSync(`${this.lts_version_folder}${this.projectsFolder}`)) {
+      fs.mkdirSync(`${this.lts_version_folder}${this.projectsFolder}`)
     }
 
     fs.writeFileSync(`${this.lts_version_folder}${this.projectsFolder}/${fileName}`, JSON.stringify(data, null, 2))
@@ -33,8 +33,8 @@ export default class LocalDatabase {
       fs.mkdirSync(this.lts_version_folder)
     }
 
-    if (!fs.existsSync(this.projectsFolder)) {
-      fs.mkdirSync(this.projectsFolder)
+    if (!fs.existsSync(`${this.lts_version_folder}${this.projectsFolder}`)) {
+      fs.mkdirSync(`${this.lts_version_folder}${this.projectsFolder}`)
     }
 
     const files = fs.readdirSync(`${this.lts_version_folder}${this.projectsFolder}`)
@@ -55,11 +55,11 @@ export default class LocalDatabase {
       fs.mkdirSync(this.lts_version_folder)
     }
 
-    if (!fs.existsSync(this.imageFolder)) {
-      fs.mkdirSync(this.imageFolder)
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}`)) {
+      fs.mkdirSync(`${this.lts_version_folder}${this.imageFolder}`)
     }
 
-    if (!fs.existsSync(`${this.imageFolder}/${id_project}`)) {
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)) {
       fs.mkdirSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)
     }
 
@@ -72,8 +72,8 @@ export default class LocalDatabase {
       fs.mkdirSync(this.lts_version_folder)
     }
 
-    if (!fs.existsSync(this.imageFolder)) {
-      fs.mkdirSync(this.imageFolder)
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}`)) {
+      fs.mkdirSync(`${this.lts_version_folder}${this.imageFolder}`)
     }
 
     if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)) {
