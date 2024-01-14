@@ -172,6 +172,6 @@ app.get('/image/:id_project/:id_picture', (request, response) => {
   })
 });
 
-app.listen(6969, () => {
-  console.log(`Server is running on http://localhost:6969`);
+app.listen(6902, () => {
+  console.log(`Server is running on http://localhost:6902`);
 });

@@ -2,5 +2,6 @@ node_modules
 .vscode
 dist
 
-// Example servers folders
+// Example servers mocked database generated folders
 v1
+v2

@@ -11,31 +11,13 @@
 
 - run the "npx tsc" command on terminal to build the server files.
 
-- to define the desired lts server version, just change the lts version number on "start" script inside package.json file.
+- start the server with the command `npm run V1` for example, or `npm run V<number of the lts version>` to select the desired version.
 
-  Examples:
+- Find your pc IPV4 wifi address. On windows just run the command `ipconfig` and get the ipv4 from Wifi adapter.
 
-```
-  "scripts": {
-    "start": "node dist/LTS_VERSION_1/index.js",
-    ...
-  }
-  
-  or
-
-  "scripts": {
-    "start": "node dist/LTS_VERSION_2/index.js",
-    ...
-  }
-
-```
-
-- start the server with the command "npm start"
-
-- Find your pc IPV4 wifi address. On windows just run the command "ipconfig" and get the ipv4 from Wifi adapter.
-
-- Inside the EarthLog app create a new credential, and add the url "http://<Your_IPV4_address>:6969". You don't need to set name and password in this test.
+- Inside the EarthLog app create a new credential, and add the url `http://<Your_IPV4_address>:6969`. You don't need to set name and password in this test since you running locally.
 
 - Done! you have your own server ready to upload/download/sync projects and pictures.
 
-OBS: This repository was tested using nodeJS v18.18.0, but there is no reason to not work on most recent releases.
+OBS:
+  - This repository was tested using nodeJS v18.18.0, but there is no reason to not work on most recent releases.
