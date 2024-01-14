@@ -7,7 +7,7 @@
 
 - Extract the files into a folder.
 
-- Open a terminal inside the main repository folder (Where is located the package.json file) and run the command "npm install" to install all dependencies.
+- Open a terminal inside the extracted folder (Where is located the package.json file) and run the command "npm install" to install all dependencies.
 
 - run the "npx tsc" command on terminal to build the server files.
 
@@ -15,7 +15,8 @@
 
 - Find your pc IPV4 wifi address. On windows just run the command `ipconfig` and get the ipv4 from Wifi adapter.
 
-- Inside the EarthLog app create a new credential, and add the url `http://<Your_IPV4_address>:6969`. You don't need to set name and password in this test since you running locally.
+- Inside the EarthLog app create a new credential, and add the url `http://<Your_IPV4_address>:6901` for lts version 1 server for example. You don't need to set name and password in this test since you running locally.
+  - The last 2 digits is always reserved for lts version. Server url address for lts version 2 will be `http://<Your_IPV4_address>:6902`. That way you can start more than one server at the same time
 
 - Done! you have your own server ready to upload/download/sync projects and pictures.
 
