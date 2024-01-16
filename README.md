@@ -11,7 +11,7 @@
 
 - run the "npx tsc" command on terminal to build the server files.
 
-- start the server with the command `npm run V1` for example, or `npm run V<number of the lts version>` to select the desired version.
+- start the server with the command `npm run v1` for example, or `npm run v<number of the lts version>` to select the desired version.
 
 - Find your pc IPV4 wifi address. On windows just run the command `ipconfig` and get the ipv4 from Wifi adapter.
 

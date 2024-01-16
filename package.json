@@ -4,8 +4,8 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "V1": "node dist/LTS_VERSION_1/index.js",
-    "V2": "node dist/LTS_VERSION_2/index.js",
+    "v1": "node dist/LTS_VERSION_1/index.js",
+    "v2": "node dist/LTS_VERSION_2/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
