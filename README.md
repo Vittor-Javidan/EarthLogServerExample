@@ -21,4 +21,4 @@
 - Done! you have your own server ready to upload/download/sync projects and pictures.
 
 OBS:
-  - This repository was tested using nodeJS v18.18.0, but there is no reason to not work on most recent releases.
+  - This repository was tested using nodeJS v20.11.0 LTS, but there is no reason to not work on most recent releases.
