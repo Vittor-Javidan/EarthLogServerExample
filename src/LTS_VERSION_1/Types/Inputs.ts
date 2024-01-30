@@ -4,7 +4,7 @@ export type InputData = StringInputData | BooleanInputData | GPSInputData
 // ============================
 export type StringInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'string'                                                                                    // Without this value, the app cannot recognize the existence of the input
   value: string                                                                                     // The actual value of the input
   placeholder?: string                                                                              // Customize the placeholder text for your Text input.
@@ -15,7 +15,7 @@ export type StringInputData = {
 // ============================
 export type BooleanInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'boolean'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: boolean                                                                                    // The actual value of the input
   notApplicable?: boolean                                                                           // Shows "N/A" option on boolean inputs when not undefined. Use this when just true or false is not enough.
@@ -26,7 +26,7 @@ export type BooleanInputData = {
 // ============================
 export type OptionsInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'options'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: OptionData[]                                                                               // All options available
   showAddOptionButton?: boolean                                                                     // Shows the button to allow users to add more options
@@ -44,7 +44,7 @@ export type OptionData = {
 // ============================
 export type SelectionInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'selection'                                                                                 // Without this value, the app cannot recognize the existence of the input
   value: SelectionOptionData                                                                        // All options available
   showAddOptionButton?: boolean                                                                     // Shows the button to allow users to add more options
@@ -64,7 +64,7 @@ export type SelectionOptionData = {
 // ============================
 export type PictureInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'picture'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: PictureData[]                                                                              // Array with metadata of each picture taken.
   lockedLabel?: boolean                                                                             // Locks input label to not be changed.
@@ -81,7 +81,7 @@ export type PictureData = {
 // ============================
 export type  GPSInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Max of 25 characteres. More than this can break input label layout render. App will not allow you to edit the label in app if you pass this threshold.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
   type: 'gps'                                                                                       // Without this value, the app cannot recognize the existence of the input
   value: GPS_DTO                                                                                    // The actual value of the input
   lockedLabel?: boolean                                                                             // Locks input label to not be changed.
