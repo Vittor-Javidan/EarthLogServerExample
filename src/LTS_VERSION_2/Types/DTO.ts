@@ -26,13 +26,13 @@ export type ProjectSettings = {
   id_project: string                                                                                // Do not share same id between Projects, because its used to name actual folders inside user device, so it can leads into to crash or unexpected behaviors. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
   lts_version: 2                                                                                    // The lts version of the project. App uses this to decide if the project should be display or not during project download, according to the user selected lts version.
   status: "uploaded" | "modified" | "new"                                                           // When a user downloads a project, that's the place to tell the app if the project was oploaded before, or if it's a fresh one.
-  name: string                                                                                      // The name of the project.
+  name: string                                                                                      // The name of the project displayed inside the app.
   sampleAlias: {                                                                                    // If the name "Sample" or "Samples" do not satisfy the context of your project, you can change this names here.
     singular: string
     plural: string
   }
   gps?: GPS_DTO                                                                                     // Hides GPSInput if undefined
-  rules: ProjectRules
+  rules: ProjectRules                                                                               // Rules that defines how the project should behave. Check Rules.ts for more information
   sampleRules?: SampleRules                                                                         // If you allow user to create new samples, these new samples will receive the rules defined here.
   uploads?: {                                                                                       // Upload history, added automatically by user phone on first upload. Important: During a project upload, the server must send a 2XX status response in order to the upload history be updated on user phone as well. Is made that way to avoid false upload to be saved with the project data.
     dateUTM: string                                                                                 // Upload in UTM date and hour on "yyyy-mm-dd hh:mm:ss" format. This is consistent, and made to allow servers to have a reference about project upload date and time.
@@ -43,9 +43,9 @@ export type ProjectSettings = {
 
 export type SampleSettings = {
   id_sample: string                                                                                 // Do not share same id between Samples, because its used to name actual folders inside user device, so it can leads into to crash or unexpected behaviors. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  name: string
+  name: string                                                                                      // The name of the sample displayed inside the app.
   gps?: GPS_DTO                                                                                     // Hides GPSInput if undefined
-  rules: SampleRules
+  rules: SampleRules                                                                                // Rules that defines how the sample should behave. Check Rules.ts for more information
 }
 
 // =================================================================================================
@@ -55,9 +55,9 @@ export type SampleSettings = {
 export type WidgetData = {
   id_widget: string                                                                                 // No not share same id between Widgets, because its used to name actual folders inside user device, so it can leads into to crash or unexpected behaviors. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
   widgetName: string                                                                                // You can use scape sequence on strings here, without break app layout, like "\n", "\t", etc.
-  inputs: InputData[]
+  inputs: InputData[]                                                                               // All Inputs that compose the Widget. Check Inputs.ts for more information
   addToNewSamples?: boolean                                                                         // Used by template screen to auto add a Widget on new Samples user creates
-  rules: WidgetRules
+  rules: WidgetRules                                                                                // Rules that defines how the widget should behave. Check Rules.ts for more information
   widgetTheme?: WidgetTheme                                                                         // When undefine, it renders with default theme
 }
 
