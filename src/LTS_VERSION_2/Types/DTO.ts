@@ -24,7 +24,7 @@ export type SampleDTO = {
 
 export type ProjectSettings = {
   id_project: string                                                                                // Do not share same id between Projects, because its used to name actual folders inside user device, so it can leads into to crash or unexpected behaviors. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  lts_version: 2                                                                                    // The lts version of the project. App uses this to decide if the project should be display or not during project download, according to the user selected lts version.
+  lts_version: 2                                                                                    // The lts version of the project. App uses this to decide if the project should be display or not during project download, according to the user selected lts version. Careful, if undefined, the app will consider the project a project from lts version 1.
   status: "uploaded" | "modified" | "new"                                                           // When a user downloads a project, that's the place to tell the app if the project was oploaded before, or if it's a fresh one.
   name: string                                                                                      // The name of the project displayed inside the app.
   sampleAlias: {                                                                                    // If the name "Sample" or "Samples" do not satisfy the context of your project, you can change this names here.
