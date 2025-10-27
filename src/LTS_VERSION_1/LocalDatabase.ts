@@ -86,4 +86,25 @@ export default class LocalDatabase {
 
     return fs.readFileSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`, 'base64')
   }
+
+  static deletePicture(id_project: string, fileName: string): void {
+
+    if (!fs.existsSync(this.lts_version_folder)) {
+      fs.mkdirSync(this.lts_version_folder)
+    }
+
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}`)) {
+      fs.mkdirSync(`${this.lts_version_folder}${this.imageFolder}`)
+    }
+
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}`)) {
+      return
+    }
+
+    if (!fs.existsSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`)) {
+      return
+    }
+
+    fs.unlinkSync(`${this.lts_version_folder}${this.imageFolder}/${id_project}/${fileName}`)
+  }
 }

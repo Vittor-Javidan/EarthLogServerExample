@@ -3,11 +3,13 @@ import express from 'express';
 import LocalDatabase from './LocalDatabase.js';
 import { projectsExample } from './projectsExample/index.js';
 
-import { ProjectDTO, ProjectSettings } from './Types/DTO.js';
+import { ProjectDTO, ProjectSettings, ProjectStatus } from './Types/DTO.js';
+import { SyncData } from './Types/Sync.js';
 
 const app = express();
 app.use(express.json({ limit: '100mb' })); // Limit of each json request payload.
 
+// Authenticate User
 app.post('/auth', (request, response) => {
 
   console.log('=======================================')
@@ -34,6 +36,7 @@ app.post('/auth', (request, response) => {
   });
 });
 
+// Get the list of All Projects Available
 app.get('/project', (request, response) => {
 
   console.log('=======================================')
@@ -46,9 +49,6 @@ app.get('/project', (request, response) => {
   // IMPLEMENTATION EXAMPLE                                                //
   const allExampleProjects: ProjectDTO[] = Object.values(projectsExample)  //
   const allUploadedProject = LocalDatabase.loadAllProjectFiles()           //
-  allUploadedProject.forEach(project => {                                  //
-    project.projectSettings.status = 'uploaded'                            //
-  })                                                                       //
   const allProjectSettings: ProjectSettings[] = [                          //
     ...allExampleProjects.map(project => project.projectSettings),         //
     ...allUploadedProject.map(project => project.projectSettings)          //
@@ -61,6 +61,7 @@ app.get('/project', (request, response) => {
   })
 });
 
+// Create New Project
 app.post('/project', (request, response) => {
 
   console.log('=======================================')
@@ -76,10 +77,11 @@ app.post('/project', (request, response) => {
   // IMPLEMENTATION EXAMPLE                                                            //
   LocalDatabase.saveProject(`${id_project}.json`, project)                             //
   response.sendStatus(202);                                                            //
-  console.log(project.projectSettings.status) // status will always be 'new'           //
   // ================================================================================= //
 })
 
+// Get Specific Project
+// If the user selected multiple projects to download, this endpoint will be called multiple times, one for each project.
 app.get('/project/:id_project', (request, response) => {
 
   console.log('=======================================')
@@ -91,27 +93,35 @@ app.get('/project/:id_project', (request, response) => {
   // Get or build a ProjectDTO from received id_project
   // ===================================================================== //
   // IMPLEMENTATION EXAMPLE                                                //
+  let project: ProjectDTO | undefined;                                     //
+  let projectStatus: ProjectStatus | undefined                             //
   const allExampleProjects: ProjectDTO[] = Object.values(projectsExample)  //
-  const allUploadedProject = LocalDatabase.loadAllProjectFiles()           //
-  allUploadedProject.forEach(project => {                                  //
-    project.projectSettings.status = 'uploaded'                            //
+  allExampleProjects.forEach(exampleProject => {                           //
+    if (exampleProject.projectSettings.id_project === id_project) {        //
+      project = exampleProject;                                            //
+      projectStatus = 'new'                                                //
+    }                                                                      //
   })                                                                       //
-  const allProjects: ProjectDTO[] = [                                      //
-    ...allExampleProjects,                                                 //
-    ...allUploadedProject                                                  //
-  ]                                                                        //
-  const filteredProject: ProjectDTO[] = allProjects.filter(project =>      //
-    project.projectSettings.id_project === id_project                      //
-  )                                                                        //
+  const allUploadedProject = LocalDatabase.loadAllProjectFiles()           //  
+  allUploadedProject.forEach(uploadedProject => {                          //
+    if (uploadedProject.projectSettings.id_project === id_project) {       //
+      project = uploadedProject;                                           //
+      projectStatus = 'uploaded'                                           //
+    }                                                                      //
+  })                                                                       //
   // ===================================================================== //
 
-  filteredProject.length <= 0
-  ? response.sendStatus(404)
-  : response.send({
-    project: filteredProject[0]
-  })
+  if (project === undefined || projectStatus === undefined) {
+    response.sendStatus(404);
+  } else {
+    response.send({
+      project: project,
+      projectStatus: projectStatus
+    })
+  }
 })
 
+// Update Project
 app.post('/project/:id_project', (request, response) => {
 
   console.log('=======================================')
@@ -126,11 +136,23 @@ app.post('/project/:id_project', (request, response) => {
   // ========================================================================================== //
   // IMPLEMENTATION EXAMPLE                                                                     //
   LocalDatabase.saveProject(`${id_project}.json`, project)                                      //
-  response.sendStatus(202);                                                                     //
-  console.log(project.projectSettings.status) // status will always be 'modified' or 'uploaded' //
   // ========================================================================================== //
+
+  // Delete any picture deleted by the user from it's device that is saved on server as well
+  // ================================================================================= //
+  const syncData = request.body.syncData as SyncData                                   //
+  const picturesSyncDataIDs = Object.keys(syncData.pictures)                           //
+  picturesSyncDataIDs.forEach(id_picture => {                                          //
+    if (syncData.pictures[id_picture] === 'deleted') {                                 //
+      LocalDatabase.deletePicture(id_project, `${id_picture}.jpg`)                     //
+    }                                                                                  //
+  })                                                                                   //
+  // ================================================================================= //
+
+  response.sendStatus(202);
 });
 
+// Upload Image
 app.post('/image/:id_project', (request, response) => {
 
   console.log('=======================================')
@@ -150,6 +172,7 @@ app.post('/image/:id_project', (request, response) => {
   // ===================================================================== //
 });
 
+// Get Image
 app.get('/image/:id_project/:id_picture', (request, response) => {
 
   console.log('=======================================')

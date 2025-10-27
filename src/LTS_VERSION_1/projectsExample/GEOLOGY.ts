@@ -4,7 +4,6 @@ export const GEOLOGY: ProjectDTO = {
   projectSettings: {
     id_project: 'a9376198-3818-40ea-b23e-2b6cfb61d084',
     lts_version: 1,
-    status: 'new',
     name: 'Geology field description example',
     sampleAlias: {
       singular: 'Local',
