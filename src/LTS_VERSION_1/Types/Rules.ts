@@ -9,6 +9,9 @@ export type ProjectRules = {
   showSampleCreationButton?: boolean                                                                // Shows the sample widget creation button.
   addGPSToNewSamples?: boolean                                                                      // Shows gps input on Sample Info for new samples created by users. This work the same as leaving SampleSettings.gps prop as "{}" or "undefined".
   deleteAfterUpload?: boolean                                                                       // Deletes the project from user phones when server returns a 2XX status response after a upload. Use this with caution to avoid data loss, by validating the project that is being uploaded. If the server refuses the project by sending any other type of status than 2XX, the project wil not be deleted from user phone, allowing him to fix or complete the project.
+  enableResetSyncData?: boolean                                                                     // Enables the option to reset sync data on project settings. When a project has its sync data reseted, all ids inside the project remains the same. I case you want this to be enabled, make sure your backend has upsert logics where it's needed, and skip logics for media that may already exist on your database.
+  sendSyncDataOnlyOnce: boolean                                                                     // When enabled, the sync data will be sent only during the post of an update (/project/:id_project) or creat (/project) new project, instead being sent on every media post call.
+  uploadToURL: string                                                                               // When enabled, the project will only be allowed to upload to the specified URL.
 }
 
 export type SampleRules = {

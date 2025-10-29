@@ -73,11 +73,12 @@ app.post('/project', (request, response) => {
   const { id_project } = project.projectSettings;
 
   // Do anything you want with the project data from this point
-  // ================================================================================= //
-  // IMPLEMENTATION EXAMPLE                                                            //
-  LocalDatabase.saveProject(`${id_project}.json`, project)                             //
-  response.sendStatus(202);                                                            //
-  // ================================================================================= //
+  // ================================================================================================================== //
+  // IMPLEMENTATION EXAMPLE                                                                                             //
+  // This could be an upsert operation, if you allow users to reset sync data, since the id_project will not be reset.  //                                               //
+  LocalDatabase.saveProject(`${id_project}.json`, project)                                                              //
+  response.sendStatus(202);                                                                                             //
+  // ================================================================================================================== //
 })
 
 // Get Specific Project
@@ -165,11 +166,12 @@ app.post('/image/:id_project', (request, response) => {
   const base64Data: string = request.body.picture;
 
   // Do anything you want with the picture data from this point
-  // ===================================================================== //
-  // IMPLEMENTATION EXAMPLE                                                //
-  LocalDatabase.savePicture(id_project, `${id_picture}.jpg`, base64Data)   //
-  response.sendStatus(202);                                                //
-  // ===================================================================== //
+  // ================================================================================================================================================================================== //
+  // IMPLEMENTATION EXAMPLE                                                                                                                                                             //
+  // If you allow users to reset sync data, you may need to fetch all image ids inside your database to decide which images to save in your db, since the id_picture will not be reset. //
+  LocalDatabase.savePicture(id_project, `${id_picture}.jpg`, base64Data)                                                                                                                //
+  response.sendStatus(202);                                                                                                                                                             //
+  // ================================================================================================================================================================================== //
 });
 
 // Get Image
