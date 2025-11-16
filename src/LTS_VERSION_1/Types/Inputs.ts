@@ -1,10 +1,14 @@
-
+export type MapAssets = (
+  'SATELLITE_INPUT' | 'INFO_SAMPLE' | 'INFO_PROJECT' | 'USER_LAST_KNOWN_LOCATION' |
+  'DIRECTION_ONE' | 'DIRECTION_TWO' | 'DEXTRAL' | 'SINISTRAL' |
+  'SURFACE_1' | 'SURFACE_2'
+) // Map marker icons available in the app.
 export type InputData = StringInputData | BooleanInputData | GPSInputData
 
 // ============================
 export type StringInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'string'                                                                                    // Without this value, the app cannot recognize the existence of the input
   value: string                                                                                     // The actual value of the input
   placeholder?: string                                                                              // Customize the placeholder text for your Text input.
@@ -15,7 +19,7 @@ export type StringInputData = {
 // ============================
 export type BooleanInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'boolean'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: boolean                                                                                    // The actual value of the input
   notApplicable?: boolean                                                                           // Shows "N/A" option on boolean inputs when not undefined. Use this when just true or false is not enough.
@@ -26,7 +30,7 @@ export type BooleanInputData = {
 // ============================
 export type OptionsInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'options'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: OptionData[]                                                                               // All options available
   showAddOptionButton?: boolean                                                                     // Shows the button to allow users to add more options
@@ -44,7 +48,7 @@ export type OptionData = {
 // ============================
 export type SelectionInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'selection'                                                                                 // Without this value, the app cannot recognize the existence of the input
   value: SelectionOptionData                                                                        // All options available
   showAddOptionButton?: boolean                                                                     // Shows the button to allow users to add more options
@@ -64,7 +68,7 @@ export type SelectionOptionData = {
 // ============================
 export type PictureInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'picture'                                                                                   // Without this value, the app cannot recognize the existence of the input
   value: PictureData[]                                                                              // Array with metadata of each picture taken.
   lockedLabel?: boolean                                                                             // Locks input label to not be changed.
@@ -81,7 +85,7 @@ export type PictureData = {
 // ============================
 export type  GPSInputData = {
   id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
-  label: string                                                                                     // Label of the input, to guide the user about what data they must collect. Carefull, Words with more than 25 characters can break the app Layout.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'gps'                                                                                       // Without this value, the app cannot recognize the existence of the input
   value: GPS_DTO                                                                                    // The actual value of the input
   lockedLabel?: boolean                                                                             // Locks input label to not be changed.
@@ -99,4 +103,27 @@ export type CoordinateDTO = {
 export type AltitudeDTO = {
   value: number                                                                                     // Altitude value in meters (m)
   accuracy: number                                                                                  // Altitude accuracy in meters (m)
+}
+
+// ============================
+export type CompassInputData = {
+  id_input: string                                                                                  // Do not share same id betweens Inputs of the same Widget. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
+  label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
+  type: 'compass'                                                                                   // Without this value, the app cannot recognize the existence of the input   
+  value: CompassMeasurementDTO[]                                                                    // Array of all compass measurements saved on this input.
+  lastUsedMarkerIcon: MapAssets                                                                     // Last used marker icon. This is used to set a icon value when adding new measurements. EVery time the user changes the icon of a measurement, this value is updated.
+  lockedLabel?: boolean                                                                             // Locks input label to not be changed.
+  lockedData?: boolean                                                                              // Locks input data, to not be modified, and just displayed.
+  showAddMeasurementButton?: boolean                                                                // Shows the button to allow users to add more measurements
+  allowMeasurementLabelChange?: boolean                                                             // Allows users to change the label of each measurement
+  allowMeasurementDataChange?: boolean                                                              // Allows users to change the data of each measurement
+  allowMeasurementDeletion?: boolean                                                                // Shows delete button for each measurement when edit mode is enable for this input
+}
+export type CompassMeasurementDTO = {
+  id: string                                                                                        // Do not share same id betweens measurements of the same Input. this can lead into unexpected behavior. Use ids validated by this regex: /^[0-9A-Za-z-]+$/, or just use a uuidV4 generator.
+  label: string                                                                                     // Label of the measurement
+  heading: number                                                                                   // Heading angle in degrees
+  dip: number                                                                                       // Dip angle in degrees
+  markerIcon: MapAssets                                                                             // Icon used to represent the measurement on the map.
+  coordinates?: CoordinateDTO                                                                       // This coordinates does not represents the real location of the measure, its just where in the map the marker was placed by the user.
 }
