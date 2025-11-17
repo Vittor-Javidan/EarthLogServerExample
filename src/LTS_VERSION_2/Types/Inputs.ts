@@ -1,8 +1,12 @@
-export type MapAssets = (
-  'SATELLITE_INPUT' | 'INFO_SAMPLE' | 'INFO_PROJECT' | 'USER_LAST_KNOWN_LOCATION' |
-  'DIRECTION_ONE' | 'DIRECTION_TWO' | 'DEXTRAL' | 'SINISTRAL' |
-  'SURFACE_1' | 'SURFACE_2'
-) // Map marker icons available in the app.
+export const MarkerAssets = [
+  'SURFACE_1'       , 'SURFACE_2'       , 'DIRECTION_ONE'       , 'DIRECTION_TWO'       , 'DEXTRAL'       , 'SINISTRAL'       ,
+  'SURFACE_1_BLUE'  , 'SURFACE_2_BLUE'  , 'DIRECTION_ONE_BLUE'  , 'DIRECTION_TWO_BLUE'  , 'DEXTRAL_BLUE'  , 'SINISTRAL_BLUE'  ,
+  'SURFACE_1_GREEN' , 'SURFACE_2_GREEN' , 'DIRECTION_ONE_GREEN' , 'DIRECTION_TWO_GREEN' , 'DEXTRAL_GREEN' , 'SINISTRAL_GREEN' ,
+  'SURFACE_1_PURPLE', 'SURFACE_2_PURPLE', 'DIRECTION_ONE_PURPLE', 'DIRECTION_TWO_PURPLE', 'DEXTRAL_PURPLE', 'SINISTRAL_PURPLE',
+  'SURFACE_1_RED'   , 'SURFACE_2_RED'   , 'DIRECTION_ONE_RED'   , 'DIRECTION_TWO_RED'   , 'DEXTRAL_RED'   , 'SINISTRAL_RED'   ,
+  'SURFACE_1_YELLOW', 'SURFACE_2_YELLOW', 'DIRECTION_ONE_YELLOW', 'DIRECTION_TWO_YELLOW', 'DEXTRAL_YELLOW', 'SINISTRAL_YELLOW',
+] as const;
+export type MarkerAssets = typeof MarkerAssets[number];                                             // Map marker icons available in the app.
 export type InputData = StringInputData | BooleanInputData | GPSInputData
 
 // ============================
@@ -111,7 +115,7 @@ export type CompassInputData = {
   label: string                                                                                     // Label of the input, to guide the user about what data they must collect.
   type: 'compass'                                                                                   // Without this value, the app cannot recognize the existence of the input   
   value: CompassMeasurementDTO[]                                                                    // Array of all compass measurements saved on this input.
-  lastUsedMarkerIcon: MapAssets                                                                     // Last used marker icon. This is used to set a icon value when adding new measurements. EVery time the user changes the icon of a measurement, this value is updated.
+  lastUsedMarkerIcon: MarkerAssets                                                                  // Last used marker icon. This is used to set a icon value when adding new measurements. EVery time the user changes the icon of a measurement, this value is updated.
   lockedLabel?: boolean                                                                             // Locks input label to not be changed.
   lockedData?: boolean                                                                              // Locks input data, to not be modified, and just displayed.
   showAddMeasurementButton?: boolean                                                                // Shows the button to allow users to add more measurements
@@ -124,6 +128,6 @@ export type CompassMeasurementDTO = {
   label: string                                                                                     // Label of the measurement
   heading: number                                                                                   // Heading angle in degrees
   dip: number                                                                                       // Dip angle in degrees
-  markerIcon: MapAssets                                                                             // Icon used to represent the measurement on the map.
+  markerIcon: MarkerAssets                                                                          // Icon used to represent the measurement on the map.
   coordinates?: CoordinateDTO                                                                       // This coordinates does not represents the real location of the measure, its just where in the map the marker was placed by the user.
 }
